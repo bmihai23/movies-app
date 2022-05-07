@@ -48,7 +48,7 @@ extension MovieViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? MovieCell else { fatalError("Cannot create cell!") }
         let movie = movies[indexPath.row]
         cell.setMovie(movie: movie)
-
+        
         return cell
     }
 }

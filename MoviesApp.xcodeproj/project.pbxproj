@@ -60,14 +60,10 @@
 		E14798A5281195BC007D9B76 /* MoviesApp */ = {
 			isa = PBXGroup;
 			children = (
-				E14798A6281195BC007D9B76 /* AppDelegate.swift */,
-				E14798A8281195BC007D9B76 /* SceneDelegate.swift */,
 				E14798BA281195C9007D9B76 /* Model */,
 				E14798BB281195D1007D9B76 /* View */,
-				E14798BC281195E2007D9B76 /* Controller */,
-				E14798AF281195BD007D9B76 /* Assets.xcassets */,
-				E14798B1281195BD007D9B76 /* LaunchScreen.storyboard */,
-				E14798B4281195BD007D9B76 /* Info.plist */,
+				E14798BC281195E2007D9B76 /* ViewController */,
+				E17C5DC02826655600ED9796 /* Files */,
 			);
 			path = MoviesApp;
 			sourceTree = "<group>";
@@ -84,17 +80,29 @@
 			isa = PBXGroup;
 			children = (
 				E14798AC281195BC007D9B76 /* Main.storyboard */,
+				E14798C82811FAC4007D9B76 /* MovieCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		E14798BC281195E2007D9B76 /* Controller */ = {
+		E14798BC281195E2007D9B76 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				E14798AA281195BC007D9B76 /* MovieViewController.swift */,
-				E14798C82811FAC4007D9B76 /* MovieCell.swift */,
 			);
-			path = Controller;
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E17C5DC02826655600ED9796 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				E14798A6281195BC007D9B76 /* AppDelegate.swift */,
+				E14798A8281195BC007D9B76 /* SceneDelegate.swift */,
+				E14798AF281195BD007D9B76 /* Assets.xcassets */,
+				E14798B1281195BD007D9B76 /* LaunchScreen.storyboard */,
+				E14798B4281195BD007D9B76 /* Info.plist */,
+			);
+			path = Files;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
