@@ -13,6 +13,8 @@ class MovieViewController: UIViewController {
     
     var cellIdentifier = "movieCell"
     
+    var buttonPressed = true
+    
     let movies: [MovieDataModel] = [
         MovieDataModel(movieImage: "dark_knight", title: "Fast & Furious Presents: Hobbs & Shaw", rating: 8.5, releaseDate: "25/07/2008"),
         MovieDataModel(movieImage: "spider_man", title: "Spider-Man: No Way Home", rating: 8.5, releaseDate: "25/07/2008"),

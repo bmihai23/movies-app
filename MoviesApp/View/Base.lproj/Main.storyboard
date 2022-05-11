@@ -81,18 +81,28 @@
                                                         <color key="baseForegroundColor" name="moviesColor"/>
                                                     </buttonConfiguration>
                                                 </button>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0tn-6v-WiO">
-                                                    <rect key="frame" x="8" y="15" width="22" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQ2-Ra-TqT">
+                                                    <rect key="frame" x="8" y="15" width="24" height="22"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="0np-d6-HiB"/>
+                                                        <constraint firstAttribute="width" constant="24" id="Im6-5d-8Vq"/>
+                                                    </constraints>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </imageView>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="heart.fill" catalog="system" title=""/>
+                                                    <connections>
+                                                        <action selector="favoriteButtonPressed:" destination="Ord-NS-8hE" eventType="touchUpInside" id="GuS-E5-BPh"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <viewLayoutGuide key="safeArea" id="xcX-Ca-OgY"/>
                                             <constraints>
+                                                <constraint firstItem="FQ2-Ra-TqT" firstAttribute="top" secondItem="xcX-Ca-OgY" secondAttribute="top" constant="15" id="78P-VH-jWu"/>
                                                 <constraint firstItem="Sto-zb-PzE" firstAttribute="leading" secondItem="xcX-Ca-OgY" secondAttribute="leading" constant="8" id="8Kp-aS-TA0"/>
                                                 <constraint firstItem="m46-9h-F7l" firstAttribute="leading" secondItem="Sto-zb-PzE" secondAttribute="trailing" constant="6" id="GJW-j0-eol"/>
                                                 <constraint firstItem="xcX-Ca-OgY" firstAttribute="bottom" secondItem="m46-9h-F7l" secondAttribute="bottom" constant="45" id="PGX-ap-Bdj"/>
+                                                <constraint firstItem="FQ2-Ra-TqT" firstAttribute="leading" secondItem="xcX-Ca-OgY" secondAttribute="leading" constant="8" id="S2d-68-MfB"/>
                                                 <constraint firstItem="QoK-XT-pai" firstAttribute="leading" secondItem="m46-9h-F7l" secondAttribute="trailing" constant="8" symbolic="YES" id="f5l-KJ-UQh"/>
                                                 <constraint firstItem="xcX-Ca-OgY" firstAttribute="bottom" secondItem="QoK-XT-pai" secondAttribute="bottom" constant="65" id="now-sa-E8C"/>
                                                 <constraint firstItem="xcX-Ca-OgY" firstAttribute="trailing" secondItem="QoK-XT-pai" secondAttribute="trailing" constant="6" id="p2e-es-4cI"/>
@@ -112,6 +122,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="favoriteButton" destination="FQ2-Ra-TqT" id="roo-gT-jQe"/>
                                             <outlet property="movieImageView" destination="Sto-zb-PzE" id="3gz-fP-cde"/>
                                             <outlet property="movieRating" destination="Y05-7H-jiB" id="gkr-uT-ggx"/>
                                             <outlet property="movieReleaseDate" destination="fct-Ox-JRZ" id="mDZ-fL-U0I"/>
