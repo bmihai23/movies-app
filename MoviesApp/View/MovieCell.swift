@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol MovieCellDelegate {
-    func addMovieToFavorite(state: Bool)
+protocol MovieCellDelegate : AnyObject {
+    func didTapFavoriteButton()
 }
 
 class MovieCell: UITableViewCell {
@@ -18,7 +18,7 @@ class MovieCell: UITableViewCell {
     @IBOutlet weak var movieRating: UILabel!
     @IBOutlet weak var movieReleaseDate: UILabel!
     
-    var delegate: MovieCellDelegate?
+    weak var delegate: MovieCellDelegate?
     
     @IBOutlet weak var favoriteButton: UIButton!
     
@@ -29,21 +29,10 @@ class MovieCell: UITableViewCell {
         movieReleaseDate.text = movie.releaseDate ?? "00/00/0000"
     }
     
-    @IBAction func favoriteButtonPressed(_ sender: UIButton) {
+    
+    @IBAction func didTapFavoriteButton(_ sender: UIButton) {
         favoriteButton.isSelected = !sender.isSelected
-        
-        if favoriteButton.isSelected {
-            print("select")
-            favoriteButton.tintColor = .red
-            let buttonState = favoriteButton.isSelected
-            delegate?.addMovieToFavorite(state: buttonState)
-            print(buttonState)
-        } else {
-            print("deselect")
-            favoriteButton.tintColor = .white
-            let buttonState = favoriteButton.isSelected
-            delegate?.addMovieToFavorite(state: buttonState)
-            print(buttonState)
-        }
+        favoriteButton.tintColor = favoriteButton.isSelected ? .systemRed : .white
+        delegate?.didTapFavoriteButton()
     }
 }

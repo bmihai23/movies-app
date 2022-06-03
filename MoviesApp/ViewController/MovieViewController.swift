@@ -8,12 +8,15 @@
 import UIKit
 
 class MovieViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     var cellIdentifier = "movieCell"
-    
-    var buttonPressed = true
+    var segueIdentifier = "goToMovieDetails"
+    var movieGenreIdentifier = "genreIdentifier"
+    let movieCell = MovieCell()
+    let movieGenreCell = MovieGenreCell()
+    var items = ["1", "2", "3", "4", "5"]
     
     let movies: [MovieDataModel] = [
         MovieDataModel(movieImage: "dark_knight", title: "Fast & Furious Presents: Hobbs & Shaw", rating: 8.5, releaseDate: "25/07/2008"),
@@ -33,8 +36,16 @@ class MovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        setupTableView()
+    }
+}
+
+// MARK: - InitDelegateAndDataSource
+extension MovieViewController {
+    func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        movieCell.delegate = self
     }
 }
 
@@ -60,6 +71,17 @@ extension MovieViewController: UITableViewDataSource {
 extension MovieViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        performSegue(withIdentifier: segueIdentifier, sender: cell)
+    }
+}
+
+// MARK: - MovieCellDelegate
+
+extension MovieViewController: MovieCellDelegate {
+    func didTapFavoriteButton() {
+        print("show")
     }
 }
