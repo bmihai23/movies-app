@@ -18,7 +18,7 @@
 		E14798C92811FAC4007D9B76 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14798C82811FAC4007D9B76 /* MovieCell.swift */; };
 		E1511A8728337EC800C68A8D /* MovieGenreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1511A8628337EC800C68A8D /* MovieGenreCell.swift */; };
 		E1B25B502838D3FE00112000 /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B25B4F2838D3FE00112000 /* MovieDetailsViewController.swift */; };
-		E1B25B522838F67700112000 /* PaddlingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B25B512838F67700112000 /* PaddlingLabel.swift */; };
+		E1B25B522838F67700112000 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B25B512838F67700112000 /* PaddingLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,7 @@
 		E14798C82811FAC4007D9B76 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		E1511A8628337EC800C68A8D /* MovieGenreCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieGenreCell.swift; sourceTree = "<group>"; };
 		E1B25B4F2838D3FE00112000 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
-		E1B25B512838F67700112000 /* PaddlingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddlingLabel.swift; sourceTree = "<group>"; };
+		E1B25B512838F67700112000 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +90,7 @@
 				E14798AC281195BC007D9B76 /* Main.storyboard */,
 				E14798C82811FAC4007D9B76 /* MovieCell.swift */,
 				E1511A8628337EC800C68A8D /* MovieGenreCell.swift */,
-				E1B25B512838F67700112000 /* PaddlingLabel.swift */,
+				E1B25B512838F67700112000 /* PaddingLabel.swift */,
 				E1392554283EBE5400EF4F18 /* SimilarMoviesCell.swift */,
 			);
 			path = View;
@@ -189,7 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1511A8728337EC800C68A8D /* MovieGenreCell.swift in Sources */,
-				E1B25B522838F67700112000 /* PaddlingLabel.swift in Sources */,
+				E1B25B522838F67700112000 /* PaddingLabel.swift in Sources */,
 				E1392555283EBE5400EF4F18 /* SimilarMoviesCell.swift in Sources */,
 				E14798C72811E424007D9B76 /* MovieDataModel.swift in Sources */,
 				E14798C92811FAC4007D9B76 /* MovieCell.swift in Sources */,

@@ -279,7 +279,7 @@
                                                                                     <rect key="frame" x="0.0" y="0.0" width="58" height="30"/>
                                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                                     <subviews>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A93-eD-iRj" customClass="PaddlingLabel" customModule="MoviesApp" customModuleProvider="target">
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A93-eD-iRj" customClass="PaddingLabel" customModule="MoviesApp" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="58" height="30"/>
                                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                             <color key="textColor" name="moviesColor"/>

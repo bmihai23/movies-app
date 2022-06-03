@@ -7,15 +7,9 @@
 
 import UIKit
 
-protocol MovieDetailsCellDelegate : AnyObject {
-    func displayGenre()
-}
-
 class MovieGenreCell: UICollectionViewCell {
     
     @IBOutlet weak var movieGenre: UILabel!
-    
-    weak var delegate: MovieDetailsCellDelegate?
     
     func displayGenre(genre: String) {
         movieGenre.text = genre

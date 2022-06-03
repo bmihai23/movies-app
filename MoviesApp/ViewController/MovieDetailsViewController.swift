@@ -14,8 +14,6 @@ class MovieDetailsViewController: UIViewController {
     
     var movieGenreIdentifier = "genreIdentifier"
     var similarMoviesIdentifier = "similarMoviesIdentifier"
-    let movieGenreCell = MovieGenreCell()
-    let similarMoviesCell = SimilarMoviesCell()
     var genres = ["Crime", "Adventure", "Science Fiction", "Thriller", "Thriller", "Thriller", "Thriller"]
     
     let similarMovies: [MovieDataModel] = [
@@ -34,12 +32,11 @@ class MovieDetailsViewController: UIViewController {
 }
 
 // MARK: - InitDelegateAndDataSource
+
 extension MovieDetailsViewController {
     func setupCollectionViews() {
-        movieGenreCell.delegate = self
         genreCollectionView.delegate = self
         genreCollectionView.dataSource = self
-        similarMoviesCell.delegate = self
         similarMoviesCollectionView.delegate = self
         similarMoviesCollectionView.dataSource = self
     }
@@ -48,7 +45,6 @@ extension MovieDetailsViewController {
 // MARK: - UICollectionViewDelegate
 
 extension MovieDetailsViewController: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (collectionView == similarMoviesCollectionView) {
             return similarMovies.count
@@ -81,21 +77,5 @@ extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout {
         }
 
         return CGSize(width: 90.0, height: 40.0)
-    }
-}
-
-// MARK: - MovieGenreCellDelegate
-
-extension MovieDetailsViewController: MovieDetailsCellDelegate {
-    func displayGenre() {
-        print("Show")
-    }
-}
-
-// MARK: - SimilarMoviesCellDelegate
-
-extension MovieDetailsViewController: SimilarMoviesCellDelegate {
-    func favoriteButtonPressed() {
-        print("Show")
     }
 }
