@@ -11,8 +11,8 @@ class MovieGenreCell: UICollectionViewCell {
     
     @IBOutlet weak var movieGenre: UILabel!
     
-    func displayGenre(genre: String) {
-        movieGenre.text = genre
+    func displayMovieGenre(genre: MovieGenres) {
+        movieGenre.text = genre.name ?? "this movie has not genre"
         movieGenre.textAlignment = .center
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1

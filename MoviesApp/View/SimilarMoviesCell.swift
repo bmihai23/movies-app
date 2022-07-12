@@ -9,15 +9,32 @@ import UIKit
 
 class SimilarMoviesCell: UICollectionViewCell {
     
-    @IBOutlet weak var similarMoviesImage: UIImageView!
+    @IBOutlet weak var similarMovieImage: UIImageView!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var favoriteButtonView: UIView!
     
-    func setSimilarMovie(movie: MovieDataModel) {
-        similarMoviesImage.image = UIImage(named: movie.movieImage ?? "no-image.jpeg")
+    var base_url = "https://image.tmdb.org/t/p/original"
+    
+    func setSimilarMovie(movie: MovieData) {
+        guard let path = URL(string: base_url + movie.poster_path) else {
+            similarMovieImage.image = UIImage(named: "no-image")
+            return
+        }
+        URLSession.shared.dataTask(with: path) { (data, response, error) in
+            guard let data = data else {
+                return
+            }
+            DispatchQueue.main.async {
+                self.similarMovieImage.image = UIImage(data: data)
+            }
+        }.resume()
         movieTitleLabel.text = movie.title
-        ratingLabel.text = String(movie.rating ?? 0.0)
+        ratingLabel.text = String(movie.vote_average ?? 0.0)
+        // Add cornerRadius to image and View
+        similarMovieImage.layer.cornerRadius = 8
+        favoriteButtonView.layer.cornerRadius = 6
     }
     
     @IBAction func favoriteButtonPressed(_ sender: UIButton) {
