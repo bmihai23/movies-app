@@ -23,10 +23,7 @@ class MovieDetailsViewController: UIViewController {
     var similarMoviesIdentifier = "similarMoviesIdentifier"
     
     var moviesManager = MoviesManager()
-    var similarMovies = [MovieData(title: "asf", release_date: "Mar 2, 1999", vote_average: 7.8, poster_path: "agag", backdrop_path: "fasf", overview: "asdfasf", id: 102312),
-                         MovieData(title: "asf", release_date: "Mar 2, 1999", vote_average: 7.8, poster_path: "agag", backdrop_path: "fasf", overview: "asdfasf", id: 102312),
-    ]
-    //var similarMovies: [MovieData] = []
+    var similarMovies: [MovieData] = []
     var genre: [MovieGenres] = []
     
     var getMovieTitle: String = ""
