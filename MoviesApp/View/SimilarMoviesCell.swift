@@ -17,7 +17,7 @@ class SimilarMoviesCell: UICollectionViewCell {
     
     var base_url = "https://image.tmdb.org/t/p/original"
     
-    func setSimilarMovie(movie: MovieData) {
+    func setSimilarMovie(movie: SimilarMoviesData) {
         guard let path = URL(string: base_url + movie.poster_path) else {
             similarMovieImage.image = UIImage(named: "no-image")
             return
@@ -31,7 +31,7 @@ class SimilarMoviesCell: UICollectionViewCell {
             }
         }.resume()
         movieTitleLabel.text = movie.title
-        ratingLabel.text = String(movie.vote_average ?? 0.0)
+        ratingLabel.text = String(format: "%.1f", movie.vote_average ?? 0.0)
         // Add cornerRadius to image and View
         similarMovieImage.layer.cornerRadius = 8
         favoriteButtonView.layer.cornerRadius = 6

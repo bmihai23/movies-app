@@ -16,6 +16,10 @@ struct GenreResponse: Codable {
     let genres: [MovieGenres]
 }
 
+struct SimilarMoviesResponse: Codable {
+    let results: [SimilarMoviesData]
+}
+
 struct MovieData: Codable {
     let title: String?
     let release_date: String?
@@ -29,4 +33,10 @@ struct MovieData: Codable {
 struct MovieGenres: Codable {
     let id: Int
     let name: String?
+}
+
+struct SimilarMoviesData: Codable {
+    let title: String?
+    let vote_average: Double?
+    let poster_path: String
 }

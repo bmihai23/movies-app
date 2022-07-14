@@ -22,8 +22,7 @@ class MovieDetailsViewController: UIViewController {
     var movieGenreIdentifier = "genreIdentifier"
     var similarMoviesIdentifier = "similarMoviesIdentifier"
     
-    var moviesManager = MoviesManager()
-    var similarMovies: [MovieData] = []
+    var similarMovies: [SimilarMoviesData] = []
     var genre: [MovieGenres] = []
     
     var getMovieTitle: String = ""
@@ -100,12 +99,37 @@ extension MovieDetailsViewController {
         }
     }
     
+    func fetchSimilarMoviesAPI(completed: @escaping (Result<[SimilarMoviesData], GFError>) -> Void) {
+        let genreURL = "https://api.themoviedb.org/3/movie/" + String(getMovieID) + "/similar?api_key=2f4e33cd29709824b1711f8d8e47d269&language=en-US&page=1"
+    print(genreURL)
+        guard let url = URL(string:  genreURL) else {
+            completed(.failure(.invalidURL))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let safeData = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+    
+            guard let movie = try? JSONDecoder().decode(SimilarMoviesResponse.self, from: safeData) else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+    
+            completed(.success(movie.results))
+        }
+        
+        task.resume()
+    }
+    
     func getSimilarMovies() {
-        moviesManager.fetchAPI { result in
+        fetchSimilarMoviesAPI { result in
             switch result {
-            case .success(let movies):
+            case .success(let similarMovies):
                 DispatchQueue.main.async {
-                    self.similarMovies = movies
+                    self.similarMovies = similarMovies
                     self.similarMoviesCollectionView.reloadData()
                 }
             case .failure(let error):
