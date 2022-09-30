@@ -8,7 +8,7 @@
 import Foundation
 
 struct MovieGenreManager {
-    func fetchMovieGenre(with getMovieID: Int, completed: @escaping (Result<[MovieGenres], GFError>) -> Void) {
+    func fetchMovieGenre(with getMovieID: Int, completed: @escaping (Result<Genre, GFError>) -> Void) {
         let genreURL = Constants.startingURL + String(getMovieID) + Constants.API_KEY
         
         guard let url = URL(string:  genreURL) else {
@@ -22,12 +22,12 @@ struct MovieGenreManager {
                 return
             }
             
-            guard let movie = try? JSONDecoder().decode(Genre.self, from: safeData) else {
+            guard let movieGenre = try? JSONDecoder().decode(Genre.self, from: safeData) else {
                 completed(.failure(.invalidResponse))
                 return
             }
             
-            completed(.success(movie.genres))
+            completed(.success(movieGenre))
         }.resume()
     }
 }

@@ -15,8 +15,8 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieReleaseDate: UILabel!
     @IBOutlet weak var movieRating: UILabel!
-    @IBOutlet weak var movieBanner: UIImageView!
-    @IBOutlet weak var movieImage: UIImageView!
+    @IBOutlet weak var movieBanner: UIImageView?
+    @IBOutlet weak var movieImage: UIImageView?
     @IBOutlet weak var movieDescription: UILabel!
     
     var movieGenreManager = MovieGenreManager()
@@ -56,15 +56,15 @@ extension MovieDetailsViewController {
         movieRating.text = String(getMovieRating)
         movieDescription.text = getMovieDescription
         // Add cornerRadius to two images
-        movieImage.layer.cornerRadius = 8
-        movieBanner.layer.cornerRadius = 8
+        movieImage?.layer.cornerRadius = 8
+        movieBanner?.layer.cornerRadius = 8
     }
     
     func getMovieGenre() {
         movieGenreManager.fetchMovieGenre(with: getMovieID) { result in
             switch result {
             case .success(let movieGenre):
-                self.genre = movieGenre
+                self.genre.append(contentsOf: movieGenre.genres)
                 DispatchQueue.main.async {
                     self.genreCollectionView.reloadData()
                 }
@@ -78,7 +78,7 @@ extension MovieDetailsViewController {
         similarMoviesManager.fetchSimilarMovies(with: getMovieID) { result in
             switch result {
             case .success(let similarMovie):
-                self.similarMovies = similarMovie
+                self.similarMovies.append(contentsOf: similarMovie.movies)
                 DispatchQueue.main.async {
                     self.similarMoviesCollectionView.reloadData()
                 }
@@ -128,56 +128,69 @@ extension MovieDetailsViewController: UICollectionViewDelegateFlowLayout {
 }
 
 
-extension MovieDetailsViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "testSegue", sender: indexPath)
-        print("You selected cell #\(indexPath.row)")
-    }
-    
+extension MovieDetailsViewController: UICollectionViewDelegate {    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Constants.similarMoviesSegueIdentifier {
-             let indexPath = sender as! IndexPath
-                let movieDetailsVC = segue.destination as? MovieDetailsViewController
-                            movieDetailsVC?.getMovieID = self.similarMovies[indexPath.row].id
-                            movieDetailsVC?.getMovieTitle = self.similarMovies[indexPath.row].title ?? ""
-                            movieDetailsVC?.getMovieRating = self.similarMovies[indexPath.row].voteAverage ?? 0.0
-                            movieDetailsVC?.getMovieDescription = self.similarMovies[indexPath.row].overview ?? ""
-                            // Change Date Format
-                            let inputFormatter = DateFormatter()
-                            inputFormatter.dateFormat = "YYYY-MM-dd"
-                            let outputFormatter = DateFormatter()
-                            outputFormatter.dateFormat = "MMM d, yyy"
-                            guard let date = inputFormatter.date(from: self.similarMovies[indexPath.row].releaseDate ?? "00/00/0000") else {
-                                return
-                            }
-                            let dateString = outputFormatter.string(from: date)
-                            movieDetailsVC?.getMovieReleaseDate = dateString
-                
-                guard let path = URL(string: Constants.base_url + (self.similarMovies[indexPath.row].posterPath ?? "")) else {
-                                movieDetailsVC?.movieImage.image = UIImage(named: "no-image")
-                                return
-                            }
-                            URLSession.shared.dataTask(with: path) { (data, response, error) in
-                                guard let data = data else {
-                                    return
-                                }
-                                DispatchQueue.main.async {
-                                    movieDetailsVC?.movieImage.image = UIImage(data: data)
-                                }
-                            }.resume()
-                
-                guard let path = URL(string: Constants.base_url + (self.similarMovies[indexPath.row].backdropPath ?? "")) else {
-                                movieDetailsVC?.movieBanner.image = UIImage(named: "no-image")
-                                return
-                            }
-                            URLSession.shared.dataTask(with: path) { (data, response, error) in
-                                guard let data = data else {
-                                    return
-                                }
-                                DispatchQueue.main.async {
-                                    movieDetailsVC?.movieBanner.image = UIImage(data: data)
-                                }
-                            }.resume()
-            }
+        if segue.identifier ?? "" == Constants.similarMoviesSegueIdentifier {
+            guard let similarMovieCell = sender as? UICollectionViewCell else { return }
+            guard let indexPath = self.similarMoviesCollectionView.indexPath(for: similarMovieCell) else { return }
+            let movieDetailsVC = segue.destination as? MovieDetailsViewController
+            print("You selected similar cell #\(indexPath.row)")
+            sendMovieDetails(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
         }
+        
+        func sendMovieDetails(movieDetailsVC: MovieDetailsViewController?, indexPath: IndexPath) {
+            movieDetailsVC?.getMovieID = self.similarMovies[indexPath.row].id
+            movieDetailsVC?.getMovieTitle = self.similarMovies[indexPath.row].title ?? ""
+            movieDetailsVC?.getMovieRating = Double(String(format: "%.1f", (self.similarMovies[indexPath.row].voteAverage ?? 0.0))) ?? 0.0
+            movieDetailsVC?.getMovieDescription = self.similarMovies[indexPath.row].overview ?? ""
+            
+            sendChangedDateFormat(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
+            sendMoviePoster(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
+            sendMovieBanner(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
+        }
+        
+        func sendChangedDateFormat(movieDetailsVC: MovieDetailsViewController?, indexPath: IndexPath) {
+            let inputFormatter = DateFormatter()
+            inputFormatter.dateFormat = "YYYY-MM-dd"
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "MMM d, yyy"
+            guard let date = inputFormatter.date(from: self.similarMovies[indexPath.row].releaseDate ?? "00/00/0000") else {
+                return
+            }
+            let dateString = outputFormatter.string(from: date)
+            movieDetailsVC?.getMovieReleaseDate = dateString
+        }
+        
+        func sendMoviePoster(movieDetailsVC: MovieDetailsViewController?, indexPath: IndexPath) {
+            guard let path = URL(string: Constants.base_url + (self.similarMovies[indexPath.row].posterPath ?? "")) else {
+                movieDetailsVC?.movieImage?.image = UIImage(named: "no-image")
+                return
+            }
+            
+            URLSession.shared.dataTask(with: path) { (data, response, error) in
+                guard let data = data else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    movieDetailsVC?.movieImage?.image = UIImage(data: data)
+                }
+            }.resume()
+        }
+        
+        func sendMovieBanner(movieDetailsVC: MovieDetailsViewController?, indexPath: IndexPath) {
+            guard let path = URL(string: Constants.base_url + (self.similarMovies[indexPath.row].backdropPath ?? "")) else {
+                movieDetailsVC?.movieBanner?.image = UIImage(named: "no-image")
+                return
+            }
+            
+            URLSession.shared.dataTask(with: path) { (data, response, error) in
+                guard let data = data else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    movieDetailsVC?.movieBanner?.image = UIImage(data: data)
+                }
+            }.resume()
+        }
+    }
 }

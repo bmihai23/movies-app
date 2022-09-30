@@ -8,7 +8,7 @@
 import Foundation
 
 struct SimilarMoviesManager {
-    func fetchSimilarMovies(with getMovieID: Int, completed: @escaping (Result<[MovieData], GFError>) -> Void) {
+    func fetchSimilarMovies(with getMovieID: Int, completed: @escaping (Result<Movie, GFError>) -> Void) {
         let similarMoviesURL = Constants.startingURL + String(getMovieID) + "/similar" + Constants.API_KEY + "&language=en-US&page=1"
         
         guard let url = URL(string:  similarMoviesURL) else {
@@ -27,7 +27,7 @@ struct SimilarMoviesManager {
                 return
             }
             
-            completed(.success(similarMovie.movies))
+            completed(.success(similarMovie))
         }.resume()
     }
 }

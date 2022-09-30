@@ -476,7 +476,7 @@
                                                             <outlet property="movieTitleLabel" destination="hUY-41-C32" id="5Qt-PY-9YC"/>
                                                             <outlet property="ratingLabel" destination="7lQ-3x-LMh" id="lJC-uW-yQ3"/>
                                                             <outlet property="similarMovieImage" destination="ZnU-wb-fUK" id="gNa-er-ERv"/>
-                                                            <segue destination="DYz-Ph-MgR" kind="show" identifier="testSegue" id="GMY-WV-s1A"/>
+                                                            <segue destination="DYz-Ph-MgR" kind="show" identifier="similarMoviesSegue" id="GMY-WV-s1A"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>

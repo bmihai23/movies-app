@@ -92,16 +92,13 @@ extension MovieViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: Constants.segueIdentifier, sender: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
-        print("You selected cell #\(indexPath.row)")
+        print("You selected movie cell #\(indexPath.row)")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow { 
             let movieDetailsVC = segue.destination as? MovieDetailsViewController
             sendMovieDetails(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
-            sendChangedDateFormat(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
-            sendMoviePoster(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
-            sendMovieBanner(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
         }
         
         func sendMovieDetails(movieDetailsVC: MovieDetailsViewController?, indexPath: IndexPath) {
@@ -109,6 +106,10 @@ extension MovieViewController: UITableViewDelegate {
             movieDetailsVC?.getMovieTitle = self.movies[indexPath.row].title ?? ""
             movieDetailsVC?.getMovieRating = self.movies[indexPath.row].voteAverage ?? 0.0
             movieDetailsVC?.getMovieDescription = self.movies[indexPath.row].overview ?? ""
+            
+            sendChangedDateFormat(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
+            sendMoviePoster(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
+            sendMovieBanner(movieDetailsVC: movieDetailsVC, indexPath: indexPath)
         }
         
         func sendChangedDateFormat(movieDetailsVC: MovieDetailsViewController?, indexPath: IndexPath) {
@@ -125,7 +126,7 @@ extension MovieViewController: UITableViewDelegate {
         
         func sendMoviePoster(movieDetailsVC: MovieDetailsViewController?, indexPath: IndexPath) {
             guard let path = URL(string: Constants.base_url + (self.movies[indexPath.row].posterPath ?? "")) else {
-                movieDetailsVC?.movieImage.image = UIImage(named: "no-image")
+                movieDetailsVC?.movieImage?.image = UIImage(named: "no-image")
                 return
             }
             
@@ -134,14 +135,14 @@ extension MovieViewController: UITableViewDelegate {
                     return
                 }
                 DispatchQueue.main.async {
-                    movieDetailsVC?.movieImage.image = UIImage(data: data)
+                    movieDetailsVC?.movieImage?.image = UIImage(data: data)
                 }
             }.resume()
         }
         
         func sendMovieBanner(movieDetailsVC: MovieDetailsViewController?, indexPath: IndexPath) {
             guard let path = URL(string: Constants.base_url + (self.movies[indexPath.row].backdropPath ?? "")) else {
-                movieDetailsVC?.movieBanner.image = UIImage(named: "no-image")
+                movieDetailsVC?.movieBanner?.image = UIImage(named: "no-image")
                 return
             }
             
@@ -150,7 +151,7 @@ extension MovieViewController: UITableViewDelegate {
                     return
                 }
                 DispatchQueue.main.async {
-                    movieDetailsVC?.movieBanner.image = UIImage(data: data)
+                    movieDetailsVC?.movieBanner?.image = UIImage(data: data)
                 }
             }.resume()
         }
