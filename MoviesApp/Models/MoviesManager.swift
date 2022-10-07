@@ -31,7 +31,7 @@ class MoviesManager {
                 return
             }
             
-            completed(.success(movies))
+            completed(.success(pagination ? movies : movies))
             
             if pagination {
                 self.isPaginating = false

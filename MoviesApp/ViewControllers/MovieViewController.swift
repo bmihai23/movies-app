@@ -49,6 +49,7 @@ extension MovieViewController {
 
 extension MovieViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("movies.count: \(movies.count)")
         return movies.count
     }
     
@@ -77,6 +78,7 @@ extension MovieViewController: UIScrollViewDelegate {
         
         if offsetY > distanceToBottom {
             guard !moviesManager.isPaginating else {
+                // we are already fetching more data
                 return
             }
             
